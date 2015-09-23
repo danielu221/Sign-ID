@@ -15,13 +15,13 @@ const int numberOfSignatures = 5;
 // Lista podpisow autentycznych
 Mat List = imread("podpisy.jpg"); Mat List_frame; Mat List_original;
 
-// Tablica przechowuj¹ca wyciête podpisy z listy
+// Tablica przechowujÂ¹ca wyciÃªte podpisy z listy
 Mat Signature[numberOfSignatures];
 
-// Tablica przechowuj¹ca podpisy w skali szaroœci
+// Tablica przechowujÂ¹ca podpisy w skali szaroÅ“ci
 Mat Signature_gray[numberOfSignatures];
 
-// Tablica przechowuj¹ca binarne wersje podpisów
+// Tablica przechowujÂ¹ca binarne wersje podpisÃ³w
 Mat Signature_bin[numberOfSignatures];
 
 // Matryca przechowujaca badany podpis
@@ -29,20 +29,20 @@ Mat Signature_tested = imread("podpisBadany.jpg");
 Mat Signature_tested_gray; Mat Signature_tested_bin; Mat Signature_tested2; Mat Signature_tested_snippet;
 Mat Signature_tested_frame; Mat Signature_tested_original;
 
-// liczba okreœlaj¹ca najmniejsz¹ rozdzielczoœæ z listy
+// liczba okreÅ“lajÂ¹ca najmniejszÂ¹ rozdzielczoÅ“Ã¦ z listy
 int minResolution = List.cols;
-////////////////////////////////////////////////ZMIENNE ZWI¥ZANE Z WYKRYWANIEM I WYCINANIEM SignatureÓW /////////////////////////////////
+////////////////////////////////////////////////ZMIENNE ZWIÂ¥ZANE Z WYKRYWANIEM I WYCINANIEM SignatureÃ“W /////////////////////////////////
 
-// Flagi informuj¹ce nas, czy klikniêto w okna podisu badanego i okna podisu z listu
+// Flagi informujÂ¹ce nas, czy klikniÃªto w okna podisu badanego i okna podisu z listu
 int signatureTestedClick = 0; int ListClick = 0;
 
-// Aktualny rozmiar struktularnego elementu, jego wartoœæ zmieniamy za pomoc¹ trackbarów
+// Aktualny rozmiar struktularnego elementu, jego wartoÅ“Ã¦ zmieniamy za pomocÂ¹ trackbarÃ³w
 int rozmiar = 9; int sizeListElement = 9;
 
-//Przechowuje wektory okreœlaj¹ce wierzcho³ki prostok¹tów do wyciêcia
+//Przechowuje wektory okreÅ“lajÂ¹ce wierzchoÂ³ki prostokÂ¹tÃ³w do wyciÃªcia
 vector<Rect> croppedSignature; vector<Rect> croppedSignatureTested;
 
-////////////////////////////////////////////////ZMIENNE DLA PORÓWNANIA OBRAZÓW POPRZEZ NA£O¯ENIE/////////////////////////////////
+////////////////////////////////////////////////ZMIENNE DLA PORÃ“WNANIA OBRAZÃ“W POPRZEZ NAÂ£OÂ¯ENIE/////////////////////////////////
 
 // Tablica przechowujaca bitowe AND
 Mat And_signatures[numberOfSignatures - 1];
@@ -50,21 +50,21 @@ Mat And_signatures[numberOfSignatures - 1];
 // Matryca przechowujaca wynik porownywania
 Mat Signature_final_laying; Mat Signature_final_laying_bin;
 
-////////////////////////////////////////////////ZMIENNE DLA PORÓWNANIA METOD¥ MATCHING METHOD/////////////////////////////////
+////////////////////////////////////////////////ZMIENNE DLA PORÃ“WNANIA METODÂ¥ MATCHING METHOD/////////////////////////////////
 
 //Okresla rozmiary fragmentu do porownywania
 int snippetX = 30; int snippetY = 30;
 
-//Przechowuje matrycê ze znormalizowanymi wynikami porównania metod¹ matchingMethod
+//Przechowuje matrycÃª ze znormalizowanymi wynikami porÃ³wnania metodÂ¹ matchingMethod
 Mat result;
 
-//Okreœla metodê porównania matchingMethod
+//OkreÅ“la metodÃª porÃ³wnania matchingMethod
 int match_method = 1;
 
-//Zmienne przechowuj¹ce wspó³rzêdne zwi¹zane z mysz¹
+//Zmienne przechowujÂ¹ce wspÃ³Â³rzÃªdne zwiÂ¹zane z myszÂ¹
 int x_move, y_move, x_snippet_edge, y_snippet_edge, flag = 0;
 
-//Zmienna, która mówi nam ile podpisów z listy ma badany fragment w podobnym miejscu do podpisu badanego
+//Zmienna, ktÃ³ra mÃ³wi nam ile podpisÃ³w z listy ma badany fragment w podobnym miejscu do podpisu badanego
 int similarToTested = 0;
 
 
@@ -97,7 +97,7 @@ vector<Rect> detectLetters(Mat img, int rozmiar)
 	return boundRect;
 }
 /***************************************
-Funkcja findMinResolution-  znajduje z danej tablicy obrazów obraz o najmniejszej rozdzielczosci i zapisuje go pod nazwa "Signature_minResolution.jpg"
+Funkcja findMinResolution-  znajduje z danej tablicy obrazÃ³w obraz o najmniejszej rozdzielczosci i zapisuje go pod nazwa "Signature_minResolution.jpg"
 ****************************************/
 void findMinResolution(Mat Images_array[])
 {
@@ -118,7 +118,7 @@ void findMinResolution(Mat Images_array[])
 }
 
 /***************************************
-Funkcja equalResolution- skaluje wszystkie obrazy z tablicy Signature[], aby mia³y rozdzielczoœæ, jak obraz o nazwie podanej w argumencie
+Funkcja equalResolution- skaluje wszystkie obrazy z tablicy Signature[], aby miaÂ³y rozdzielczoÅ“Ã¦, jak obraz o nazwie podanej w argumencie
 ****************************************/
 void equalResolution(string image_name)
 {
@@ -136,7 +136,7 @@ void equalResolution(string image_name)
 }
 
 /***************************************
-Funkcja onMouseMatching-obs³uga myszy dla matchingMethod, umo¿liwia wybranie fragmentu podpisu badanego do porównywania z innymi podpisami
+Funkcja onMouseMatching-obsÂ³uga myszy dla matchingMethod, umoÂ¿liwia wybranie fragmentu podpisu badanego do porÃ³wnywania z innymi podpisami
 ****************************************/
 static void onMouseMatching(int event, int x, int y, int, void*)
 {
@@ -178,7 +178,7 @@ static void onMouseCropList(int event, int x, int y, int, void*)
 }
 
 /***************************************
-Funkcja toGrayscale- przejscie na skalê szarosci dla wszystkich podpisów z tablicy Signature[]
+Funkcja toGrayscale- przejscie na skalÃª szarosci dla wszystkich podpisÃ³w z tablicy Signature[]
 ****************************************/
 void toGrayscale()
 {
@@ -190,7 +190,7 @@ void toGrayscale()
 	cvtColor(Signature_tested, Signature_tested_gray, CV_BGR2GRAY);
 }
 /***************************************
-Funkcja toBin- dokonuje binaryzacji dla wszystkich podpisów z tablicy Signature_gray[]
+Funkcja toBin- dokonuje binaryzacji dla wszystkich podpisÃ³w z tablicy Signature_gray[]
 ****************************************/
 void toBin()
 {
@@ -201,11 +201,11 @@ void toBin()
 	threshold(Signature_tested_gray, Signature_tested_bin, 125, 255, 0);
 }
 /***************************************
-Funkcja overlap- znajduje czesc wspolna obrazu utworzonego ze wszystkich podpisów w bazie i podpisu badanego
+Funkcja overlap- znajduje czesc wspolna obrazu utworzonego ze wszystkich podpisÃ³w w bazie i podpisu badanego
 ****************************************/
 void overlap()
 {
-	// Na³o¿enie na siebie wszystkich podpisów
+	// NaÂ³oÂ¿enie na siebie wszystkich podpisÃ³w
 	bitwise_and(Signature_bin[0], Signature_bin[1], And_signatures[0]);
 	for (int i = 0; i < numberOfSignatures - 2; i++)
 	{
@@ -213,22 +213,22 @@ void overlap()
 
 	}
 
-	// Na³o¿enie na siebie sumy wszystkich podpisów i badanego podpisu z wagami 0.5, zapisanie wyniku do Signature_final_laying_bin
+	// NaÂ³oÂ¿enie na siebie sumy wszystkich podpisÃ³w i badanego podpisu z wagami 0.5, zapisanie wyniku do Signature_final_laying_bin
 	addWeighted(And_signatures[numberOfSignatures - 2], 0.5, Signature_tested_bin, 0.5, 0, Signature_final_laying);
 
-	// toBin obrazu uzyskanego poprzez na³o¿enie na siebie sumy wszystkich podpisów i badanego podpisu z wagami 0.5
+	// toBin obrazu uzyskanego poprzez naÂ³oÂ¿enie na siebie sumy wszystkich podpisÃ³w i badanego podpisu z wagami 0.5
 	threshold(Signature_final_laying, Signature_final_laying_bin, 125, 255, 0);
 }
 
 /***************************************
-Funkcja matchingMethod- znajduje obszar, w ktorym wyciety fragment podpisu badanego jest porownywany do podpisów z list
+Funkcja matchingMethod- znajduje obszar, w ktorym wyciety fragment podpisu badanego jest porownywany do podpisÃ³w z list
 ****************************************/
 void matchingMethod(int, void*)
 {
 
 	for (int i = 0; i < numberOfSignatures; i++)
 	{
-		/// Obraz wyœwietalny
+		/// Obraz wyÅ“wietalny
 		Mat img_display;
 		Signature[i].copyTo(img_display);
 
@@ -238,18 +238,18 @@ void matchingMethod(int, void*)
 
 		result.create(result_rows, result_cols, CV_32FC1);
 
-		/// Wykonanie operacji porównania i normalizacja
+		/// Wykonanie operacji porÃ³wnania i normalizacja
 		matchTemplate(Signature[i], Signature_tested_snippet, result, match_method);
 		normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
 
-		/// Wybranie obszaru o najwiêkszym podobobieñstwie do fragmentu wzorca
+		/// Wybranie obszaru o najwiÃªkszym podobobieÃ±stwie do fragmentu wzorca
 		double minVal; double maxVal; Point minLoc; Point maxLoc;
 		Point matchLoc;
 
 		/// Znajduje globalne maximum i minimum w danej tablicy
 		minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
 
-		/// Dla metod porówynawania: SQDIFF i SQDIFF_NORMED, najbardziej podobne obszary maj¹ minimalne warotoœci. Dla pozosta³ych maxima.
+		/// Dla metod porÃ³wynawania: SQDIFF i SQDIFF_NORMED, najbardziej podobne obszary majÂ¹ minimalne warotoÅ“ci. Dla pozostaÂ³ych maxima.
 		if (match_method == CV_TM_SQDIFF || match_method == CV_TM_SQDIFF_NORMED)
 		{
 			matchLoc = minLoc;
@@ -259,7 +259,7 @@ void matchingMethod(int, void*)
 			matchLoc = maxLoc;
 		}
 
-		/// Obrysowanie obszaru o najwiêkszym podobobieñstwie ramk¹ o wymiarach fragmentu badanego podpisu
+		/// Obrysowanie obszaru o najwiÃªkszym podobobieÃ±stwie ramkÂ¹ o wymiarach fragmentu badanego podpisu
 		rectangle(img_display, matchLoc, Point(matchLoc.x + Signature_tested_snippet.cols, matchLoc.y + Signature_tested_snippet.rows), Scalar(0,0,255), 2, 8, 0);
 		rectangle(result, matchLoc, Point(matchLoc.x + Signature_tested_snippet.cols, matchLoc.y + Signature_tested_snippet.rows), Scalar(0,0,255), 2, 8, 0);
 		imwrite("WYNIK_DOPASOWANIE" + to_string(i) + ".jpg", img_display);
@@ -277,7 +277,7 @@ void matchingMethod(int, void*)
 }
 
 /***************************************
-Funkcja blackPixels- znajduje i zwraca liczbê czarnych pikseli na danym obrazie
+Funkcja blackPixels- znajduje i zwraca liczbÃª czarnych pikseli na danym obrazie
 ****************************************/
 int blackPixels(Mat E)
 {
@@ -296,7 +296,7 @@ int blackPixels(Mat E)
 }
 
 /***************************************
-Funkcja compabilityPercent- oblicza procent zgodnoœci badanego obrazu z obrazami z listy ( stosunek czarnych pikseli dla czesci wspolnej badanego podpisu i matrycy do czarnych pikseli badanego podpisu)
+Funkcja compabilityPercent- oblicza procent zgodnoÅ“ci badanego obrazu z obrazami z listy ( stosunek czarnych pikseli dla czesci wspolnej badanego podpisu i matrycy do czarnych pikseli badanego podpisu)
 ****************************************/
 int compabilityPercent(int badany, int uzyskany)
 {
@@ -310,7 +310,7 @@ int compabilityPercent(int badany, int uzyskany)
 }
 
 /***************************************
-Funkcja trackbarTested- obs³ugiwana w trakcie zmiany trackabaru, zaznacza obszar podpisu badanego do wyciêcia
+Funkcja trackbarTested- obsÂ³ugiwana w trakcie zmiany trackabaru, zaznacza obszar podpisu badanego do wyciÃªcia
 ****************************************/
 void trackbarTested(int, void*)
 {
@@ -325,7 +325,7 @@ void trackbarTested(int, void*)
 }
 
 /***************************************
-Funkcja trackbarList- obs³ugiwana w trakcie zmiany trackbaru, zaznacza obszar podpisów z listy do wyciêcia
+Funkcja trackbarList- obsÂ³ugiwana w trakcie zmiany trackbaru, zaznacza obszar podpisÃ³w z listy do wyciÃªcia
 ****************************************/
 void trackbarList(int, void*)
 
@@ -347,7 +347,7 @@ void trackbarList(int, void*)
 int main()
 {
 
-	//Sprawdzamy, czy za³adowano listê podpisów i podpis badany
+	//Sprawdzamy, czy zaÂ³adowano listÃª podpisÃ³w i podpis badany
 	if (!List.data || !Signature_tested.data)
 	{
 		printf("Obrazy nie zaladowaly sie poprawnie!");
@@ -374,9 +374,9 @@ int main()
 	rectangle(Signature_tested_frame, croppedSignatureTested[0], Scalar(0, 0, 255), 1, 8, 0);
 	imshow("Badany", Signature_tested_frame);
 
-	//Trackbar steruj¹cy wielkoœci¹ elemetu strukturalnego w metodzie detectLetters
+	//Trackbar sterujÂ¹cy wielkoÅ“ciÂ¹ elemetu strukturalnego w metodzie detectLetters
 	createTrackbar("croppedSignatureTested", "Badany", &rozmiar, 40, trackbarTested);
-	//W³¹czenie obs³ugi myszy, klikniêcie w okno powoduje wyciêcie obrazu w obszarze czerwonej ramki
+	//WÂ³Â¹czenie obsÂ³ugi myszy, klikniÃªcie w okno powoduje wyciÃªcie obrazu w obszarze czerwonej ramki
 	setMouseCallback("Badany", onMouseCropTested, 0);
 	while (1)
 	{
@@ -400,7 +400,7 @@ int main()
 	cout << "2. Na okienku z wyswietlona lista podpisow wybierz za pomoca suwaka rozmiar ramek obejmujacych podpisy ( kazdy podpis powinien byc objety mozliwie waska ramka)" << endl;
 	cout << "Po wybraniu rozmiaru ramek kliknij myszka w dowolnym miejscu obrazu." << endl << endl;
 
-	//Operacja wycinania dla podpisów z listy
+	//Operacja wycinania dla podpisÃ³w z listy
 	croppedSignature = detectLetters(List, sizeListElement);
 	for (int i = 0; i < croppedSignature.size(); i++)
 	{
@@ -410,9 +410,9 @@ int main()
 		
 
 	}
-	//Trackbar steruj¹cy wielkoœci¹ elemetu strukturalnego w metodzie detectLetters
+	//Trackbar sterujÂ¹cy wielkoÅ“ciÂ¹ elemetu strukturalnego w metodzie detectLetters
 	createTrackbar("WycinekList", "List", &sizeListElement, 40, trackbarList);
-	//W³¹czenie obs³ugi myszy, klikniêcie w okno powoduje wyciêcie obrazów w obszarze czerwonych ramek
+	//WÂ³Â¹czenie obsÂ³ugi myszy, klikniÃªcie w okno powoduje wyciÃªcie obrazÃ³w w obszarze czerwonych ramek
 	setMouseCallback("List", onMouseCropList, 0);
 	while (1)
 	{
@@ -494,7 +494,7 @@ int main()
 
 	matchingMethod(0, 0);
 
-	/// Prezentacja wyników uzyskanych w testach
+	/// Prezentacja wynikÃ³w uzyskanych w testach
 	Mat wyniki = Mat(720, 1024, CV_8UC3);
 	rectangle(wyniki, Point(0, 0), Point(1024, 720), Scalar(0, 0, 0), -1, 8, 0);
 	putText(wyniki, "Zgodnosc wedlug testu nr1 (nalozenie): " + to_string(compabilityPercent(blackPixels(Signature_tested_bin), blackPixels(Signature_final_laying_bin))) + "%", Point(10, 200), CV_FONT_NORMAL, 1, Scalar(255, 255, 255), 1, 5, 0);
